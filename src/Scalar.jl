@@ -70,7 +70,6 @@ length{ T <: AbstractScalar }( ::T ) = 1
 endof{ T <: AbstractScalar }( ::T ) = 1
 getindex{ T <: AbstractScalar }( x::T, j::Integer ) = j == 1 ? x : throw( BoundsError())
 getindex{ T <: AbstractScalar }( x::T, js::Integer ... ) = all([ j == 1 for j in js ]) ? x : throw( BoundsError())
-getindex{ T <: AbstractScalar }( x::T, js::Real ... ) = getindex( x, to_indexes( js ... ) ... )
 first{ T <: AbstractScalar }( x::T ) = x
 last{ T <: AbstractScalar }( x::T ) = x
 

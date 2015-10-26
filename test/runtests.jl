@@ -49,6 +49,10 @@ ismatch{ S }( re::Regex, s::StringWrapper{S} ) = ismatch( re, s.s )
 facts( "AbstractScalar" ) do
 
     a = DummyScalar()
+
+    @fact isScalar( a ) --> true
+    @fact isScalar( typeof( a )) --> true
+    
     @fact size( a ) --> ()
     @fact size( a, 1 ) --> 1
     @fact size( a, 2 ) --> 1
@@ -57,6 +61,7 @@ facts( "AbstractScalar" ) do
     @fact ndims( a ) --> 0
     @fact ndims( typeof( a )) --> 0
     @fact length( a ) --> 1
+    @fact endof( a ) --> 1
     @fact a[ 1 ] --> a
     @fact a[ 1, 1, 1, 1, 1 ] --> a
     @fact first( a ) --> a
@@ -72,13 +77,12 @@ facts( "AbstractScalar" ) do
     @fact start( a ) --> false
     @fact next( a, start( a )) --> ( a, true )
     @fact done( a, next( a, start( a ))) --> ( a, true )
+    @fact isempty( a ) --> false
     
     @fact map( identity, a ) --> a
 
     @fact filter( isDummyScalar, a ) --> a
     @fact filter( isntDummyScalar, a ) --> nothing
-
-
     
     b = StringWrapper( "FooBar" )
     
