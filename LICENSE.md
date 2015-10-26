@@ -3,8 +3,8 @@ The Scalar.jl package is licensed under a two license system -- GPLv3 and an alt
 > Copyright (c) 2015: Samuel B. Johnson.
 >
 > Scalar.jl is licensed under a two license system.  For commercial 
-> licensing options, please contact the author.  Otherwise, continue
-> reading below.
+> licensing options that are not consistent with GPLv3, please contact the author.
+> Otherwise, continue reading below.
 >
 > The Scalar.jl package is free software; you can redistribute it and/or modify
 > it under the terms of the GNU General Public License as published by

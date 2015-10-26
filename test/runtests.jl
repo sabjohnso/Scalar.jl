@@ -4,8 +4,9 @@
 
 ## Author: Samuel B. Johnson <sabjohnso@yahoo.com>
 
-## This file is lincesed under a two license system. For commercial use,
-## please contact the author. Otherwise, continue reading below.
+## This file is lincesed under a two license system. For commercial use
+## that is not compatible with the GPLv3, please contact the author.
+## Otherwise, continue reading below.
 
 ## This file is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -16,7 +17,6 @@
 ## along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ### Code:
-
 using Scalar
 using FactCheck
 
