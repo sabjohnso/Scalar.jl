@@ -17,7 +17,8 @@ Dual licensing (GPLv3, alternate commercial) - See LICENSE.md
 
 To define a new scalar type:
 
-```type MyScalar <: AbstractScalar
+```julia
+type MyScalar <: AbstractScalar
 end
 
 using Base.Test
