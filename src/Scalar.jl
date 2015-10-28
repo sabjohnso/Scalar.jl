@@ -39,6 +39,46 @@ export AbstractScalar, isScalar,
        start, next, done, isempty, map, filter
 
 
+"
+@make_scalar <TypeName>
+-----------------------
+An unhygenic macro to define a number of 
+methods for scalar types.
+"
+macro make_scalar( T )
+    esc(quote
+        
+        #
+        # ... Array operations
+        #
+
+        size( x::$T ) = ()
+        size( x::$T, d ) = convert( Int, d ) < 1 ? throw( BoundsError()) : 1
+        ndims( ::$T ) = 0
+        length( ::$T ) = 1
+        endof( ::$T ) = 1
+        getindex( x::$T, j::Integer ) = j == 1 ? x : throw( BoundsError())
+        getindex( x::$T, js::Integer ... ) = all([ j == 1 for j in js ]) ? x : throw( BoundsError())
+        first( x::$T ) = x
+        last( x::$T ) = x
+
+        #
+        # ... Iterator operations
+        #
+
+        start( ::$T ) = false
+        next( x::$T, state ) = (x, true)
+        done( ::$T, state ) = state
+        isempty( ::$T ) = false
+        map( f, x::$T ) = f( x )
+        filter( p, x::$T ) = p( x ) ? x : nothing
+        filter( re::Regex, x::$T ) = ismatch( re, x ) ? x : nothing
+        
+    end)
+end
+
+
+
 
 "
 AbstractScalar
@@ -48,42 +88,43 @@ of scalar iterator operations as done for Numer.
 "
 abstract AbstractScalar
 
+@make_scalar AbstractScalar
 
 
-#
-# ... Type Predicate
-#
-isScalar{T}( ::Type{T} ) = T <: AbstractScalar
-isScalar{T}( ::T ) = isScalar( T )
+# #
+# # ... Type Predicate
+# #
+# isScalar{T}( ::Type{T} ) = T <: AbstractScalar
+# isScalar{T}( ::T ) = isScalar( T )
 
-#
-# ... Array operations
-#
+# #
+# # ... Array operations
+# #
 
-size{ T <: AbstractScalar }( x::T ) = ()
-size{ T <: AbstractScalar }( x::T, d ) = convert( Int, d ) < 1 ? throw( BoundsError()) : 1
-eltype{ T <: AbstractScalar }( ::Type{T} ) = T
-eltype{ T <: AbstractScalar }( ::T ) = eltype( T )
-ndims{ T <: AbstractScalar }( ::Type{T} ) = 0
-ndims{ T <: AbstractScalar }( ::T ) = 0
-length{ T <: AbstractScalar }( ::T ) = 1
-endof{ T <: AbstractScalar }( ::T ) = 1
-getindex{ T <: AbstractScalar }( x::T, j::Integer ) = j == 1 ? x : throw( BoundsError())
-getindex{ T <: AbstractScalar }( x::T, js::Integer ... ) = all([ j == 1 for j in js ]) ? x : throw( BoundsError())
-first{ T <: AbstractScalar }( x::T ) = x
-last{ T <: AbstractScalar }( x::T ) = x
+# size{ T <: AbstractScalar }( x::T ) = ()
+# size{ T <: AbstractScalar }( x::T, d ) = convert( Int, d ) < 1 ? throw( BoundsError()) : 1
+# eltype{ T <: AbstractScalar }( ::Type{T} ) = T
+# eltype{ T <: AbstractScalar }( ::T ) = eltype( T )
+# ndims{ T <: AbstractScalar }( ::Type{T} ) = 0
+# ndims{ T <: AbstractScalar }( ::T ) = 0
+# length{ T <: AbstractScalar }( ::T ) = 1
+# endof{ T <: AbstractScalar }( ::T ) = 1
+# getindex{ T <: AbstractScalar }( x::T, j::Integer ) = j == 1 ? x : throw( BoundsError())
+# getindex{ T <: AbstractScalar }( x::T, js::Integer ... ) = all([ j == 1 for j in js ]) ? x : throw( BoundsError())
+# first{ T <: AbstractScalar }( x::T ) = x
+# last{ T <: AbstractScalar }( x::T ) = x
 
-#
-# ... Iterator operations
-#
+# #
+# # ... Iterator operations
+# #
 
-start{T <: AbstractScalar }( ::T ) = false
-next{T <: AbstractScalar }( x::T, state ) = (x, true)
-done{T <: AbstractScalar }( ::T, state ) = state
-isempty{ T <: AbstractScalar }( ::T ) = false
-map{ T <: AbstractScalar }( f, x::T ) = f( x )
-filter{ T <: AbstractScalar }( p, x::T ) = p( x ) ? x : nothing
-filter{ T <: AbstractScalar }( re::Regex, x::T ) = ismatch( re, x ) ? x : nothing
+# start{T <: AbstractScalar }( ::T ) = false
+# next{T <: AbstractScalar }( x::T, state ) = (x, true)
+# done{T <: AbstractScalar }( ::T, state ) = state
+# isempty{ T <: AbstractScalar }( ::T ) = false
+# map{ T <: AbstractScalar }( f, x::T ) = f( x )
+# filter{ T <: AbstractScalar }( p, x::T ) = p( x ) ? x : nothing
+# filter{ T <: AbstractScalar }( re::Regex, x::T ) = ismatch( re, x ) ? x : nothing
 
 
 

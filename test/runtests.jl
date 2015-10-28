@@ -50,16 +50,10 @@ facts( "AbstractScalar" ) do
 
     a = DummyScalar()
 
-    @fact isScalar( a ) --> true
-    @fact isScalar( typeof( a )) --> true
-    
     @fact size( a ) --> ()
     @fact size( a, 1 ) --> 1
     @fact size( a, 2 ) --> 1
-    @fact eltype( a ) --> DummyScalar
-    @fact eltype( typeof( a )) --> DummyScalar
     @fact ndims( a ) --> 0
-    @fact ndims( typeof( a )) --> 0
     @fact length( a ) --> 1
     @fact endof( a ) --> 1
     @fact a[ 1 ] --> a
