@@ -34,6 +34,8 @@ import Base.size, Base.eltype, Base.ndims, Base.length, Base.endof,
        Base.getindex, Base.first, Base.last,
        Base.start, Base.next, Base.done, Base.isempty, Base.map, Base.filter
 
+export @make_scalar
+
 export AbstractScalar, isScalar,
        size, eltype, ndims, length, endof, getindex, first, last,
        start, next, done, isempty, map, filter
